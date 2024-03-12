@@ -5,9 +5,10 @@ export const getAllPosts = (state => state.posts);
 const createActionName = actionName => `app/posts/${actionName}`;
 
 
-
 // action creators
 export const removePost = payload => ({ type: 'REMOVE_POST', payload});
+
+
 const postsReducer = (statePart = [], action) => {
   switch (action.type) {
     case 'REMOVE_POST':

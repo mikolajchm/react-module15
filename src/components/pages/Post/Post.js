@@ -41,9 +41,7 @@ const Post = () =>  {
                         <Button variant="outline-success">Edit</Button>
                     </Link>
                     {' '}
-                    <Link to="#">
-                        <Button variant="outline-danger" onClick={handleShow}>Delete</Button>
-                    </Link>
+                    <Button variant="outline-danger" onClick={handleShow}>Delete</Button>
                     <div className="modal show" style={{ display: 'block', position: 'initial' }}>
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
