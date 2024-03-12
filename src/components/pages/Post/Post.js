@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Navigate } from 'react-router-dom'; 
+import { useParams, useNavigate } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
 import initialState from '../../../redux/initialState'; 
 import { Button } from 'react-bootstrap';
@@ -8,11 +8,11 @@ import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import styles from './Post.module.scss';
 import { useDispatch } from 'react-redux'; 
-import { removePost } from '../../../redux/postsRedux';
+import { removePosts } from '../../../redux/postsRedux';
 
 const Post = () =>  {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate(); // Inicjalizacja funkcji nawigacyjnej
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -20,12 +20,13 @@ const Post = () =>  {
 
     const handleRemove = e => {
         e.preventDefault();
-        dispatch(removePost (post.id));
+        dispatch(removePosts(post.id));
+        navigate('/'); // Przekierowanie użytkownika do strony głównej po usunięciu posta
     }
 
     const post = initialState.posts.find(post => post.id === id);
 
-    if (!post) return <Navigate to="/" />
+    if (!post) navigate('/'); 
 
     return (
         <div>
@@ -62,7 +63,5 @@ const Post = () =>  {
         </div>
     );
 }
-
-
 
 export default Post;
