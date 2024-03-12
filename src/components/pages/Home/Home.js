@@ -1,5 +1,6 @@
 import React from 'react';
 import { getAllPosts } from '../../../redux/postsRedux';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -19,7 +20,9 @@ const Home = () => {
                             <Card.Subtitle className="mb-2">Author: {post.author}</Card.Subtitle>
                             <Card.Subtitle className="mb-2">Published: {post.publishedDate}</Card.Subtitle>
                             <Card.Text>{post.shortDescription}</Card.Text>
-                            <Button href="#">Read more</Button>
+                            <Link to={`/post/${post.id}`}>
+                                <Button variant="primary">Read more</Button>
+                            </Link>
                         </Card.Body>
                     </Card>
                 </Col>
