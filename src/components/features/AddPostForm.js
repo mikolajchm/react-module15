@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPost } from '../../redux/postsRedux';
-import { Form, Button,  Container } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const AddPostForm = () => {
@@ -26,7 +26,7 @@ const AddPostForm = () => {
 
     return (
         <Container style={{ marginLeft: '200px' }}>
-            <Form  onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="title">
                     <Form.Label>Title:</Form.Label>
                     <Form.Control 
@@ -75,9 +75,7 @@ const AddPostForm = () => {
                         onChange={e => setContent(e.target.value)} />
                 </Form.Group>
                 <div style={{ marginTop: '20px' }}></div>
-                <Form onSubmit={handleSubmit}>
-                    <Button variant="primary" type="submit">Add post</Button>
-                </Form>
+                <Button variant="primary" type="submit">Add post</Button>
             </Form>
         </Container>
     );
