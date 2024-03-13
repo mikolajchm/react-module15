@@ -8,11 +8,11 @@ import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import styles from './Post.module.scss';
 import { useDispatch } from 'react-redux'; 
-import { removePosts } from '../../../redux/postsRedux';
+import { removePost } from '../../../redux/postsRedux';
 
 const Post = () =>  {
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // Inicjalizacja funkcji nawigacyjnej
+    const navigate = useNavigate(); 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -20,8 +20,8 @@ const Post = () =>  {
 
     const handleRemove = e => {
         e.preventDefault();
-        dispatch(removePosts(post.id));
-        navigate('/'); // Przekierowanie użytkownika do strony głównej po usunięciu posta
+        dispatch(removePost(post.id));
+        navigate('/'); 
     }
 
     const post = initialState.posts.find(post => post.id === id);
