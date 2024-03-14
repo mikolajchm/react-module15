@@ -6,6 +6,6 @@ const Editpost = () => {
             <h1>Edit post</h1>
             <EditPostForm/>
         </div>
-    )
+    )    
 }
 export default Editpost;
