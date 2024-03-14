@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
-import initialState from '../../../redux/initialState'; 
 import { Button } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import styles from './Post.module.scss';
 import { useDispatch } from 'react-redux'; 
-import { removePost } from '../../../redux/postsRedux';
+import { removePost, getPostById } from '../../../redux/postsRedux';
+import { useSelector } from 'react-redux';
 
 const Post = () =>  {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Post = () =>  {
         navigate('/'); 
     }
 
-    const post = initialState.posts.find(post => post.id === id);
+    const post = useSelector(state => getPostById(state, id));
 
     if (!post) navigate('/'); 
 
