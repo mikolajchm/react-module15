@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container, Form, Button } from 'react-bootstrap'; 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import ReactDatePicker from "react-datepicker";
+import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.module.css';
 
 
@@ -45,13 +45,13 @@ const PostForm = ({ action, actionText, ...props }) => {
             </Form.Group>
             <Form.Group controlId="publishedDate">
                 <Form.Label>Published Date:</Form.Label>
-                    <ReactDatePicker
+                    <DatePicker
                      selected={publishedDate}
                      value={publishedDate} 
                      onChange={(date) => setPublishedDate(date)} 
                      className="form-control" 
                      placeholderText="Date" 
-                     dateFormat='dd/mm/yyyy'
+                     dateFormat='mm/dd/yyyy'
                     />      
             </Form.Group>
             <Form.Group controlId="shortDescription">

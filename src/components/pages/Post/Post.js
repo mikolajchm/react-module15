@@ -19,6 +19,7 @@ const Post = () =>  {
     const handleShow = () => setShow(true);
     const { id } = useParams(); 
 
+
     const handleRemove = e => {
         e.preventDefault();
         dispatch(removePost(post.id));
@@ -35,7 +36,7 @@ const Post = () =>  {
                 <Col md={{ span: 4, offset: 1 }}>
                     <h1>{post.title}</h1>
                     <p>Author: {post.author}</p>
-                    <p>Published Date:{dateToStr(post.publishedDate)}</p>
+                    <p>Published Date: {dateToStr(post.publishedDate)}</p>
                     <p>{post.content}</p>
                 </Col>
                 <Col md={{ span: 4, offset: 3 }}>
