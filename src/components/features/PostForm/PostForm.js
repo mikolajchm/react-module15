@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Form, Button } from 'react-bootstrap'; 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import ReactDatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.module.css';
+
 
 const PostForm = ({ action, actionText, ...props }) => {
     const [title, setTitle] = useState(props.title || '');
@@ -8,6 +13,7 @@ const PostForm = ({ action, actionText, ...props }) => {
     const [content, setContent] = useState(props.content || '');
     const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
     const [author, setAuthor] = useState(props.author || '');
+    
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -39,12 +45,14 @@ const PostForm = ({ action, actionText, ...props }) => {
             </Form.Group>
             <Form.Group controlId="publishedDate">
                 <Form.Label>Published Date:</Form.Label>
-                <Form.Control 
-                    style={{ width: '300px' }} 
-                    placeholder="Enter date"
-                    value={publishedDate} 
-                    onChange={e => setPublishedDate(e.target.value)}>
-                </Form.Control>          
+                    <ReactDatePicker
+                     selected={publishedDate}
+                     value={publishedDate} 
+                     onChange={(date) => setPublishedDate(date)} 
+                     className="form-control" 
+                     placeholderText="Date" 
+                     dateFormat='dd/mm/yyyy'
+                    />      
             </Form.Group>
             <Form.Group controlId="shortDescription">
                 <Form.Label>Short Description:</Form.Label>
@@ -59,14 +67,10 @@ const PostForm = ({ action, actionText, ...props }) => {
             </Form.Group>
             <Form.Group controlId="content">
                 <Form.Label>Main Content:</Form.Label>
-                <Form.Control 
-                    style={{ width: '700px' }} 
+                <ReactQuill theme="snow" style={{ width: '700px' }} 
                     placeholder="Enter content"
                     as="textarea" 
-                    rows={5} 
-                    value={content} 
-                    onChange={e => setContent(e.target.value)}> 
-                </Form.Control>
+                    rows={5}  value={content} onChange={setContent} />
             </Form.Group>
             <div style={{ marginTop: '20px' }}></div>
             <Button variant="primary" type="submit">{actionText}</Button>

@@ -9,6 +9,7 @@ import styles from './Post.module.scss';
 import { useDispatch } from 'react-redux'; 
 import { removePost, getPostById } from '../../../redux/postsRedux';
 import { useSelector } from 'react-redux';
+import { dateToStr } from '../../../utils/dateToStr.js';
 
 const Post = () =>  {
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const Post = () =>  {
                 <Col md={{ span: 4, offset: 1 }}>
                     <h1>{post.title}</h1>
                     <p>Author: {post.author}</p>
-                    <p>Published Date: {post.publishedDate}</p>
+                    <p>Published Date:{dateToStr(post.publishedDate)}</p>
                     <p>{post.content}</p>
                 </Col>
                 <Col md={{ span: 4, offset: 3 }}>
