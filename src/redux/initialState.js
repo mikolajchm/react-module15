@@ -24,6 +24,12 @@ const initialState = {
         publishedDate: new Date('02-02-2022'),
         author: 'Alice Johnson'
       },
+    ],
+
+    categories: [
+        'Sport',
+        'News',
+        'Movies'
     ]
   };
   

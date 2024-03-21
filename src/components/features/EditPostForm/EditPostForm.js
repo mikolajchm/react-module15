@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { editPost, getPostById } from '../../../redux/postsRedux';
 import { Navigate, useNavigate, useParams } from "react-router-dom"

@@ -5,43 +5,60 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.module.css';
+import { useForm } from "react-hook-form";
+import { getAllCategories } from "../../../redux/categoriesRedux";
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+
 
 
 const PostForm = ({ action, actionText, ...props }) => {
+    const categories = useSelector(getAllCategories)
+    const { register, handleSubmit: validate, formState: { errors } } = useForm();
     const [title, setTitle] = useState(props.title || '');
     const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
     const [content, setContent] = useState(props.content || '');
     const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
+    const [category, setCategories] = useState(props.category || '');
     const [author, setAuthor] = useState(props.author || '');
+    const [contentError, setContentError] = useState(false);
+    const [dateError, setDateError] = useState(false);
+    const [categoriesError, setCategoriesError] = useState(false);
+    
     
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        action({ title, author, publishedDate, shortDescription, content });
+    const handleSubmit = () => {
+        setContentError(!content)
+        setDateError(!publishedDate)
+        setCategoriesError(!categories)
+        if(content && publishedDate) {
+          action({ title, author, publishedDate, categories, shortDescription, content });
+        }
       };
 
     return (
         <Container style={{ marginLeft: '200px' }}>
-        <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="title">
-                <Form.Label>Title:</Form.Label>
-                <Form.Control
-                    type="text" 
-                    value={title} 
-                    style={{ width: '300px' }} 
-                    onChange={e => setTitle(e.target.value)} 
-                    placeholder="Enter title">
-                </Form.Control>
+        <Form onSubmit={validate(handleSubmit)}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+             <Form.Label>Title</Form.Label>
+                    <Form.Control
+                        {...register("title", { required: true, minLength: 3 })}
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                        type="text" placeholder="Enter title"
+                    />
+                    {errors.title && <small className="d-block form-text text-danger mt-2">This field is required</small>}
             </Form.Group>
-            <Form.Group controlId="author">
-                <Form.Label>Author:</Form.Label>
-                <Form.Control 
-                    style={{ width: '300px' }} 
-                    placeholder="Enter Author"
-                    type="text" 
-                    value={author} 
-                    onChange={e => setAuthor(e.target.value)}>
-                </Form.Control>      
+            <Form.Group className="mb-3" controlId="author">
+             <Form.Label>Author</Form.Label>
+                    <Form.Control
+                        {...register("author", { required: true, minLength: 3 })}
+                        style={{ width: '300px' }} 
+                        placeholder="Enter author"
+                        type="text" 
+                        value={author}
+                        onChange={e => setAuthor(e.target.value)}
+                    />
+                    {errors.author && <small className="d-block form-text text-danger mt-2">This field is required</small>}
             </Form.Group>
             <Form.Group controlId="publishedDate">
                 <Form.Label>Published Date:</Form.Label>
@@ -52,18 +69,38 @@ const PostForm = ({ action, actionText, ...props }) => {
                      className="form-control" 
                      placeholderText="Date" 
                      dateFormat='mm/dd/yyyy'
-                    />      
+                    />   
+                    {dateError && <small className="d-block form-text text-danger mt-2">DatePicker can't be empty</small>}   
             </Form.Group>
-            <Form.Group controlId="shortDescription">
-                <Form.Label>Short Description:</Form.Label>
+            <Form.Group className="mb-3" controlId="categories">
+                <Form.Label>Categories:</Form.Label>
+                    <Form.Select aria-label="Default select example"
+                    {...register('categories', {required: true})}
+                    as="textarea" 
+                    value={category} 
+                    onChange={e => setCategories(e.target.value)}
+                    >       
+                <option>Select category</option>
+                    {categories.map((category, index) => (
+                    <option key={index} value={category}>
+                    {category}
+                    </option>
+                ))}
+                </Form.Select>
+                {categoriesError && <small className="d-block form-text text-danger mt-2">This field is required</small>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="shortDescription">
+             <Form.Label>Short Description:</Form.Label>
                     <Form.Control
+                        {...register("shortDescription", { required: true, minLength: 20 })}
                         style={{ width: '700px' }} 
                         placeholder="Enter description"
                         aria-label="Short Description"
                         aria-describedby="shortDescription"
                         value={shortDescription}
-                        onChange={e => setShortDescription(e.target.value)}>
-                    </Form.Control>
+                        onChange={e => setShortDescription(e.target.value)}
+                    />
+                    {errors.shortDescription && <small className="d-block form-text text-danger mt-2">This field is required</small>}
             </Form.Group>
             <Form.Group controlId="content">
                 <Form.Label>Main Content:</Form.Label>
@@ -71,6 +108,7 @@ const PostForm = ({ action, actionText, ...props }) => {
                     placeholder="Enter content"
                     as="textarea" 
                     rows={5}  value={content} onChange={setContent} />
+                    {contentError && <small className="d-block form-text text-danger mt-2">Content can't be empty</small>}
             </Form.Group>
             <div style={{ marginTop: '20px' }}></div>
             <Button variant="primary" type="submit">{actionText}</Button>
