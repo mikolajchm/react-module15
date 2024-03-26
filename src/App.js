@@ -8,6 +8,7 @@ import Post from "./components/pages/Post/Post";
 import NotFound from "./components/pages/NotFound/NotFound";
 import Header from "./components/views/Header/Header";
 import Footer from "./components/views/Footer/Footer";
+import Categories from "./components/pages/Categories.js/Categories";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/post/add" element={<Addpost />} />
           <Route path="/post/edit/:id" element={<Editpost />} />
           <Route path="/about" element={<About />} />
+          <Route path="/categories" element={<Categories />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

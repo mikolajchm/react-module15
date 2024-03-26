@@ -17,7 +17,7 @@ const PostForm = ({ action, actionText, ...props }) => {
     const [title, setTitle] = useState(props.title || '');
     const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
     const [content, setContent] = useState(props.content || '');
-    const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
+    const [publishedDate, setPublishedDate] = useState(props.publishedDate || ''); 
     const [category, setCategories] = useState(props.category || '');
     const [author, setAuthor] = useState(props.author || '');
     const [contentError, setContentError] = useState(false);
@@ -29,9 +29,9 @@ const PostForm = ({ action, actionText, ...props }) => {
     const handleSubmit = () => {
         setContentError(!content)
         setDateError(!publishedDate)
-        setCategoriesError(!categories)
-        if(content && publishedDate) {
-          action({ title, author, publishedDate, categories, shortDescription, content });
+        setCategoriesError(!category)
+        if(content && publishedDate && category) {
+          action({ title, author, publishedDate, category, shortDescription, content });
         }
       };
 
@@ -43,6 +43,7 @@ const PostForm = ({ action, actionText, ...props }) => {
                     <Form.Control
                         {...register("title", { required: true, minLength: 3 })}
                         value={title}
+                        style={{ width: '320px' }} 
                         onChange={e => setTitle(e.target.value)}
                         type="text" placeholder="Enter title"
                     />
@@ -52,7 +53,7 @@ const PostForm = ({ action, actionText, ...props }) => {
              <Form.Label>Author</Form.Label>
                     <Form.Control
                         {...register("author", { required: true, minLength: 3 })}
-                        style={{ width: '300px' }} 
+                        style={{ width: '320px' }} 
                         placeholder="Enter author"
                         type="text" 
                         value={author}
@@ -60,15 +61,16 @@ const PostForm = ({ action, actionText, ...props }) => {
                     />
                     {errors.author && <small className="d-block form-text text-danger mt-2">This field is required</small>}
             </Form.Group>
-            <Form.Group controlId="publishedDate">
+            <Form.Group className="mb-3" controlId="publishedDate">
                 <Form.Label>Published Date:</Form.Label>
+                {" "}
                     <DatePicker
                      selected={publishedDate}
-                     value={publishedDate} 
+                     value={publishedDate}  
                      onChange={(date) => setPublishedDate(date)} 
                      className="form-control" 
                      placeholderText="Date" 
-                     dateFormat='mm/dd/yyyy'
+                     dateFormat='dd/MM/yyyy'
                     />   
                     {dateError && <small className="d-block form-text text-danger mt-2">DatePicker can't be empty</small>}   
             </Form.Group>
@@ -76,6 +78,7 @@ const PostForm = ({ action, actionText, ...props }) => {
                 <Form.Label>Categories:</Form.Label>
                     <Form.Select aria-label="Default select example"
                     {...register('categories', {required: true})}
+                    style={{ width: '320px' }} 
                     as="textarea" 
                     value={category} 
                     onChange={e => setCategories(e.target.value)}

@@ -1,7 +1,7 @@
 export const dateToStr = date => {
     const dd = date.getDate().toString().padStart(2, '0');
-    const mm = (1 + date.getMonth()).toString().padStart(2, '0');
+    const MM = (1 + date.getMonth()).toString().padStart(2, '0');
     const yyyy = date.getFullYear();
-    return mm + '/' + dd + '/' + yyyy;
+    return dd + '/' + MM + '/' + yyyy;
 };
 
