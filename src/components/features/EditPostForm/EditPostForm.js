@@ -23,7 +23,7 @@ const EditPostForm = () => {
         action={handleSubmit}
         actionText='EditPost'
         title={post.title}
-        publishedDate={post.publishedDate}
+        publishedDate={post.publishedDate.toLocaleDateString()}
         category={post.categories}
         shortDescription={post.shortDescription}
         content={post.content}
