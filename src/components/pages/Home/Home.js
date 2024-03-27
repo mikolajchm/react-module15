@@ -29,7 +29,7 @@ const Home = () => {
                             <Card.Body>
                                 <Card.Title className="mb-3">{post.title}</Card.Title>
                                 <Card.Subtitle className="mb-2">Author: {post.author}</Card.Subtitle>
-                                <Card.Subtitle className="mb-2">Published: {post.publishedDate.toLocaleString()}</Card.Subtitle>
+                                <Card.Subtitle className="mb-2">Published: {post.publishedDate.toLocaleDateString()}</Card.Subtitle>
                                 <Card.Subtitle className="mb-2">Category: {post.category}</Card.Subtitle>
                                 <Card.Text>{post.shortDescription}</Card.Text>
                                 <Link to={`/post/${post.id}`}>
